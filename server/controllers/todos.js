@@ -37,7 +37,7 @@ module.exports = {
         }],
       })
 
-      return res.status(200).send(todos)
+      return res.status(200).json(todos)
 
     }catch(err){
       console.log('error', err)
