@@ -25,8 +25,12 @@ module.exports = {
   async list(req, res){
     
     try{
+      const {skip, limit} = req.query
 
       const todos = await Todo.findAll({
+        offset: skip, 
+        limit: limit,
+
         include: [{
           model: TodoItem,
           as: 'todoItems',
