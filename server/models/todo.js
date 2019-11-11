@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type : DataTypes.STRING
     },
+    userId : {
+      allowNull: false,
+      type : DataTypes.INTEGER,
+    },
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
@@ -25,10 +29,18 @@ module.exports = (sequelize, DataTypes) => {
 
   Todo.associate = function(models) {
     // associations can be defined here
+
+    Todo.belongsTo(models.User,{
+      foreignKey: 'userId',
+      onDelete: 'CASCADE'
+    })
+
     Todo.hasMany(models.TodoItem,{
       foreignKey:'todoId',
       as : 'todoItems'
     })
+
+
   };
   return Todo;
 };

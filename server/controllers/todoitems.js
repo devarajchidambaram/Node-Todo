@@ -26,9 +26,14 @@ module.exports = {
      try{
 
        const {todoId} = req.params;
+       const {skip, limit} = req.query
+
+       console.log('req.query', req.query)
 
        const todoItems = await TodoItem.findAll({
          where : {
+          offset: skip, 
+          limit: limit,
           todoId
          }
         })

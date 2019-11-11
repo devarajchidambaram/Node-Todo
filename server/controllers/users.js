@@ -1,21 +1,22 @@
-const { Todo , TodoItem } = require('../models');
+const { User, Todo } = require('../models');
 const only = require('only')
 
-
+console.log('todo//', JSON.stringify(Todo))
 module.exports = {
  async create(req, res) {
 
     try{
 
-      const {title, userId}  = req.body
+      const {name, email, password}  = req.body
 
-      await Todo
+      await User
       .create({
-        title,
-        userId
+        name,
+        email,
+        password
       })
 
-      return res.status(201).send({ message :'Created successfully' })
+      return res.status(201).send({ message :'User created successfully' })
 
     }catch(err){
       console.log('error', err)
@@ -28,17 +29,18 @@ module.exports = {
     try{
       const {skip, limit} = req.query
 
-      const todos = await Todo.findAll({
+      const users = await User.findAll({
         offset: skip, 
         limit: limit,
 
         include: [{
-          model: TodoItem,
-          as: 'todoItems',
-        }],
+          model: Todo,
+          as : 'userTodos'
+        }]
+
       })
 
-      return res.status(200).json(todos)
+      return res.status(200).json(users)
 
     }catch(err){
       console.log('error', err)
@@ -49,10 +51,10 @@ module.exports = {
   async retrieve(req, res){
     
     try{
-      const {todoId}  = req.params
+      const {userId}  = req.params
 
-      const todo = await Todo.findByPk(todoId)
-      return res.status(200).send(todo)
+      const user = await User.findByPk(userId)
+      return res.status(200).send(user)
 
     }catch(err){
       console.log('error', err)
@@ -63,20 +65,20 @@ module.exports = {
   async update(req, res){
     
     try{
-      const {todoId}  = req.params
+      const {userId}  = req.params
       const changes = req.body  
 
-      const updatedCount = await Todo.update(
+      const updatedCount = await User.update(
 
-        only(changes, 'title')
+        only(changes, 'name email password')
 
       , {
         where : {
-          id : todoId
+          id : userId
         }
       })
 
-      if(updatedCount[0] === 0 ) return res.status('400').send({ message : 'Todo id not found'})
+      if(updatedCount[0] === 0 ) return res.status('400').send({ message : 'User id not found'})
 
       return res.status(200).send({message : 'Updated successfully'})
 
@@ -91,19 +93,19 @@ module.exports = {
     
     try{
 
-      const {todoId}  = req.params
+      const {userId}  = req.params
       const changes = req.body  
 
-      const result = await Todo.findOrCreate(
+      const result = await User.findOrCreate(
       {
         where : {
-          id : todoId
+          id : userId
         },
         //Data to be created or updated
         defaults:  only(changes, 'title') 
       })
 
-      if(result[1] === true)  return res.status(201).send({message : 'Created successfully'})
+      if(result[1] === true)  return res.status(201).send({message : 'User created successfully'})
 
       return res.status(200).send({message : 'Updated successfully'})
 
@@ -117,17 +119,17 @@ module.exports = {
   async destroy(req, res){
     
     try{
-      const {todoId}  = req.params
+      const {userId}  = req.params
       
-      const deletedCount = await Todo.destroy({
+      const deletedCount = await User.destroy({
          where : {
-           id : todoId
+           id : userId
          }
      })
      
-     if(deletedCount === 0 ) return res.status('400').send({ message : 'Todo id not found'})
+     if(deletedCount === 0 ) return res.status('400').send({ message : 'User id not found'})
 
-     return res.status(200).send({message : 'Deleted successfully'})
+     return res.status(200).send({message : 'User deleted successfully'})
 
     }catch(err){
       console.log('error', err)

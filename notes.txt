@@ -27,6 +27,10 @@ create database : sequelize-cli db:create
 
    sequelize model:create --name Todo --attributes title:string
    sequelize model:create --name TodoItem --attributes content:string,complete:boolean
+   sequelize model:create --name User --attributes name:string,email:string,password:string
+
+
+
 
 
    //Sequlize 

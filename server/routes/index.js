@@ -1,13 +1,16 @@
-const todosController = require('../controllers').todos;
-const todoItemsController = require('../controllers').todoItems
+const {
+  todosController,
+  todoItemsController,
+  usersController
+} = require('../controllers');
+
 
 module.exports = (app) => {
   app.get('/api', (req, res) => res.status(200).send({
     message: 'Welcome to the Todos API!',
   }));
 
-//Todos
-
+  //Todos
   app.get('/api/todos', todosController.list);
   app.get('/api/todos/:todoId', todosController.retrieve);
   app.post('/api/todos', todosController.create);
@@ -16,7 +19,7 @@ module.exports = (app) => {
   app.delete('/api/todos/:todoId', todosController.destroy);
 
 
-//Todo items
+  //Todo items
   app.get('/api/todos/:todoId/items', todoItemsController.list);
   app.get('/api/todos/:todoId/items/:id', todoItemsController.retrieve);
   app.post('/api/todos/:todoId/items/:id', todoItemsController.create);
@@ -24,7 +27,16 @@ module.exports = (app) => {
   app.patch('/api/todos/:todoId/items/:id', todoItemsController.update);
   app.delete('/api/todos/:todoId/items/:id', todoItemsController.destroy);
 
+  //users
+  app.get('/api/users', usersController.list);
+  app.get('/api/users/:userId', usersController.retrieve);
+  app.post('/api/users', usersController.create);
+  app.put('/api/users/:userId', usersController.upsert);
+  app.patch('/api/users/:userId', usersController.update);
+  app.delete('/api/users/:userId', usersController.destroy);
+
   app.get('*', (req, res) => res.status(404).send({
     message: 'Page not found',
   }));
+
 };
