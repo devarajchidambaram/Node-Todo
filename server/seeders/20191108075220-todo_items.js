@@ -13,7 +13,9 @@ module.exports = {
       }], {});
     */
 
-   return queryInterface.bulkInsert('TodoItems', [{
+   return queryInterface.bulkInsert('TodoItems', [
+     
+    {
     "content": "Buy soap",
     "todoId": 1,
    },
