@@ -32,7 +32,8 @@ module.exports = (sequelize, DataTypes) => {
 
     Todo.belongsTo(models.User,{
       foreignKey: 'userId',
-      onDelete: 'CASCADE'
+      onDelete: 'CASCADE',
+      unique: false
     })
 
     Todo.hasMany(models.TodoItem,{

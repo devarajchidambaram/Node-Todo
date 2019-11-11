@@ -22,23 +22,42 @@ passport.use(new LocalStrategy({
         usernameField: 'email'
     },
     async (email, password, done) => {
-       try {
+        try {
+
             let user = await UserModel.findOne({
-                where: { email }
+                where: {
+                    email
+                }
             })
 
-            if (email === user.email && password === user.password) {
-                console.log('Local strategy username password matched')
-                return done(null, user)
+            if (email === user.email) {
+
+                try {
+
+                    const isPasswordMatched = await UserModel.isPasswordMatched(password, user.password)
+
+                    if (isPasswordMatched) {
+                        return done(null, user)
+                    }
+
+                } catch (err) {
+                    console.log('err', err)
+                    return done(null, false, {
+                        message: 'Internal error occurred.'
+                    });
+                }
             }
 
-            return done(null, false, { message: 'Incorrect username or password.' });
+            return done(null, false, {
+                message: 'Incorrect username or password.'
+            });
 
         } catch (err) {
             console.log('err', err)
-            return done(null, false, { message: 'Internal error occurred.' });
+            return done(null, false, {
+                message: 'Internal error occurred.'
+            });
         }
-
     }
 ));
 
@@ -46,7 +65,7 @@ passport.use(new LocalStrategy({
 
 // tell passport how to serialize the user
 passport.serializeUser((user, done) => {
-   // console.log('Inside serializeUser callback. User id is save to the session file store here')
+    // console.log('Inside serializeUser callback. User id is save to the session file store here')
     done(null, user.id);
 });
 
@@ -105,12 +124,12 @@ app.post('/login', (req, res, next) => {
     console.log('Inside POST /login callback')
     passport.authenticate('local', (err, user, info) => {
 
-        if(err){
+        if (err) {
             return res.send('Invalid username or password')
         }
 
         req.login(user, (err) => {
-            if(err){
+            if (err) {
                 return res.send('Invalid username or password')
             }
 

@@ -1,4 +1,6 @@
 'use strict';
+const bcrypt = require('bcrypt')
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     id: {
@@ -37,5 +39,16 @@ module.exports = (sequelize, DataTypes) => {
       as : 'userTodos'
     })
   };
+  User.saltRounds = 10;
+
+
+  User.generateHash = function(plainPassword){
+    return bcrypt.hash(plainPassword, User.saltRounds)
+  }
+
+  User.isPasswordMatched = function(password, hash){
+    return  bcrypt.compare(password, hash)
+  }
+
   return User;
 };

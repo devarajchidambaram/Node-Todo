@@ -1,4 +1,4 @@
-const { User, Todo } = require('../models');
+const { User, Todo } = require('../../models');
 const only = require('only')
 
 console.log('todo//', JSON.stringify(Todo))
