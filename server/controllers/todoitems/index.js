@@ -1,4 +1,4 @@
-const TodoItem = require('../models').TodoItem;
+const TodoItem = require('../../models').TodoItem;
 const only = require('only')
 
 module.exports = {

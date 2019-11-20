@@ -1,4 +1,4 @@
-const { Todo , TodoItem } = require('../models');
+const { Todo , TodoItem } = require('../../models');
 const only = require('only')
 
 
