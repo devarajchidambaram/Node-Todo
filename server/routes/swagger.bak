@@ -1,0 +1,158 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.1.0",
+        "title": "Nodejs todo  app",
+        "description": "Basic todo application using nodejs express sequelize",
+        "license": {
+            "name": "MIT"
+        }
+    },
+
+    "host": "localhost:3000",
+    "tags": [{
+        "name": "Cats",
+        "description": "API for cats in the system"
+    }],
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+
+    "paths": {
+        "/cats": {
+            "get": {
+                "tags": ["Cats"],
+                "summary": "Get all cats in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Cat"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Cats"],
+                "summary": "create a new  cat in system",
+                "parameters": [{
+                        "in": "body",
+                        "name": "body",
+                        "description": "cat name"
+                    },
+                    {
+                        "in": "body",
+                        "name": "country",
+                        "description": "country name"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Cat"
+                        }
+                    },
+                    "400": {
+                        "description": "Falied to create"
+                    }
+                }
+            }
+        },
+        "/cats/{id}": {
+
+            "parameters": [{
+                "in": "path",
+                "name": "id",
+                "description": "Id of the cat that we want",
+                "required" : true
+            }],
+
+            "get": {
+                "tags": ["Cats"],
+                "summary": "Get all cats in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Cat"
+                        }
+                    },
+                    "400": {
+                        "description": "bad request"
+                    },
+                      "404": {
+                        "description": "not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Cats"],
+                "summary": "update  cat in system",
+                "parameters": [{
+                        "required" : true,
+                        "in": "body",
+                        "name": "body",
+                        "description": "cat name"
+                    },
+                    {
+                        "in": "body",
+                        "name": "country",
+                        "description": "country name"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Cat"
+                        }
+                    },
+                    "400": {
+                        "description": "Falied to create"
+                    }
+                }
+            }
+        }
+    },
+
+    "definitions": {
+        "id": {
+            "properties": {
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+
+        "Cat": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "isHungry": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "Cats": {
+            "type": "object",
+            "properties": {
+                "cats": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/Cat"
+                    }
+                }
+            }
+        }
+    }
+}
