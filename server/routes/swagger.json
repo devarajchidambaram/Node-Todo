@@ -1,0 +1,329 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "1.1.0",
+		"title": "Nodejs todo app",
+		"description": "Basic todo application using nodejs",
+		"license": {
+			"name": "MIT"
+		}
+	},
+
+	"host": "localhost:8000",
+	"tags": [{
+		"name": "Users",
+		"description": "API for get users details"
+	}, {
+		"name": "Todos",
+		"description": "API for get todo"
+	}],
+	"schemes": [
+		"http",
+		"https"
+	],
+	"consumes": [
+		"application/json"
+	],
+	"produces": [
+		"application/json"
+	],
+
+	"paths": {
+		"/api/users": {
+			"get": {
+				"tags": ["Users"],
+				"summary": "Get all users",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/User"
+						}
+					}
+				}
+			},
+			"post": {
+				"tags": ["Users"],
+				"summary": "create a new user",
+				"parameters": [{
+					"in": "body",
+					"name": "body",
+					"description": "Enter name, email , password",
+					"type": "string",
+					"schema": {
+						"$ref": "#/definitions/User"
+					}
+				}],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/User"
+						}
+					},
+					"400": {
+						"description": "Failed to create user"
+					}
+				}
+			}
+		},
+		"/api/users/{id}": {
+
+			"parameters": [{
+				"in": "path",
+				"name": "id",
+				"description": "ID of the user ",
+				"required": true
+			}],
+
+			"get": {
+				"tags": ["Users"],
+				"summary": "Get particular user by id",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/User"
+						}
+					},
+					"400": {
+						"description": "Bad request"
+					},
+					"404": {
+						"description": "User id not found"
+					}
+				}
+			},
+			"put": {
+				"tags": ["Users"],
+				"summary": "update  or create user",
+				"parameters": [{
+					"required": true,
+					"in": "body",
+					"name": "body",
+					"description": "user name"
+				}],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Users"
+						}
+					},
+					"400": {
+						"description": "Failed to create or update"
+					}
+				}
+			},
+			"patch": {
+				"tags": ["Users"],
+				"summary": "update user by id",
+				"parameters": [{
+					"required": true,
+					"in": "body",
+					"name": "body",
+					"description": "enter name or email or password to update"
+				}],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Users"
+						}
+					},
+					"404": {
+						"description": "User id not found"
+					}
+				}
+			},
+			"delete": {
+				"tags": ["Users"],
+				"summary": "Delete user by id",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Users"
+						}
+					},
+					"404": {
+						"description": "User id not found"
+					}
+				}
+			}
+		},
+		"/api/todos": {
+			"get": {
+				"tags": ["Todos"],
+				"summary": "Get all todos",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Todo"
+						}
+					}
+				}
+			},
+			"post": {
+				"tags": ["Todos"],
+				"summary": "create a new user",
+				"parameters": [{
+					"in": "body",
+					"name": "body",
+					"description": "Enter title, userId",
+					"schema": {
+						"$ref": "#/definitions/Todo"
+					}
+				}],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Todo"
+						}
+					},
+					"400": {
+						"description": "Failed to create todo"
+					}
+				}
+			}
+		},
+		"/api/todos/{id}": {
+
+			"parameters": [{
+				"in": "path",
+				"name": "id",
+				"description": "ID of the todo ",
+				"required": true
+			}],
+
+			"get": {
+				"tags": ["Todos"],
+				"summary": "Get particular todo by id",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Todo"
+						}
+					},
+					"400": {
+						"description": "Bad request"
+					},
+					"404": {
+						"description": "Todo id not found"
+					}
+				}
+			},
+			"put": {
+				"tags": ["Todos"],
+				"summary": "update  or create todo",
+				"parameters": [{
+					"required": true,
+					"in": "body",
+					"name": "body",
+					"description": "user name"
+				}],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Todo"
+						}
+					},
+					"400": {
+						"description": "Failed to create or update todo"
+					}
+				}
+			},
+			"patch": {
+				"tags": ["Todos"],
+				"summary": "update todo by id",
+				"parameters": [{
+					"required": true,
+					"in": "body",
+					"name": "body",
+					"description": "enter title"
+				}],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Todo"
+						}
+					},
+					"404": {
+						"description": "Todo id not found"
+					}
+				}
+			},
+			"delete": {
+				"tags": ["Todos"],
+				"summary": "Delete todo by id",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Todo"
+						}
+					},
+					"404": {
+						"description": "Todo id not found"
+					}
+				}
+			}
+		}
+	},
+
+	"definitions": {
+		"id": {
+			"properties": {
+				"uuid": {
+					"type": "string"
+				}
+			}
+		},
+
+		"User": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"email": {
+					"type": "string"
+				},
+				"password": {
+					"type": "string"
+				}
+			}
+		},
+		"Users": {
+			"type": "object",
+			"properties": {
+				"user": {
+					"type": "object",
+					"additionalProperties": {
+						"$ref": "#/definitions/User"
+					}
+				}
+			}
+		},
+
+		"Todo": {
+			"type": "object",
+			"properties": {
+				"title": {
+					"type": "string"
+				},
+				"userId": {
+					"type": "number"
+				}
+			}
+		}
+
+	}
+}

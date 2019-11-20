@@ -14,41 +14,41 @@ module.exports = {
     */
 
     return queryInterface.bulkInsert('Todos', [
-      {
-        "id": 1,
-        "title": "Shopping",
-        "userId" : 1,
-      },
-      {
-        "id": 2,
-        "title": "Book Ticket",
-        "userId" : 1,
-      },
-      {
-        "id": 3,
-        "title": "Pay EB bill",
-        "userId" : 1,
-      },
-      {
-        "id": 4,
-        "title": "Transfer money",
-        "userId" : 2,
-      },
-      {
-        "id": 5,
-        "title": "Prepare document",
-        "userId" : 2,
-      },
-      {
-        "id": 6,
-        "title": "Call to ramesh",
-        "userId" : 3,
-      },
-      {
-        "id": 7,
-        "title": "Check for report",
-        "userId" : 3,
-      },
+      // {
+      //   "id": 1,
+      //   "title": "Shopping",
+      //   "userId" : 1,
+      // },
+      // {
+      //   "id": 2,
+      //   "title": "Book Ticket",
+      //   "userId" : 1,
+      // },
+      // {
+      //   "id": 3,
+      //   "title": "Pay EB bill",
+      //   "userId" : 1,
+      // },
+      // {
+      //   "id": 4,
+      //   "title": "Transfer money",
+      //   "userId" : 2,
+      // },
+      // {
+      //   "id": 5,
+      //   "title": "Prepare document",
+      //   "userId" : 2,
+      // },
+      // {
+      //   "id": 6,
+      //   "title": "Call to ramesh",
+      //   "userId" : 3,
+      // },
+      // {
+      //   "id": 7,
+      //   "title": "Check for report",
+      //   "userId" : 3,
+      // },
     ])
   },
 
